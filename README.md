@@ -1,73 +1,79 @@
-# PyBitTorrent Client
+# BitTorrent Client
 
-یک کلاینت BitTorrent کامل نوشته شده با Python که تمام قابلیت‌های اصلی پروتکل BitTorrent را پیاده‌سازی می‌کند.
+A complete **BitTorrent client** written in **Python**, implementing all the core features of the BitTorrent protocol.  
+This project is designed both as a working torrent client and as a learning resource for understanding peer-to-peer communication.
 
-## ویژگی‌ها
+---
 
-- خواندن فایل‌های torrent (bencode parsing)
-- اتصال به tracker های HTTP و UDP
-- اتصال به peer ها و مدیریت ارتباط
-- درخواست و دریافت block ها از peer ها
-- مدیریت piece ها و تایید hash
-- پشتیبانی از torrent های تک فایل و چند فایل
-- قابلیت seed کردن به peer های دیگر
-- مدیریت حافظه و نوشتن بر روی دیسک
+## Features
 
-## نحوه استفاده
+- Parse `.torrent` files (with full bencode encoder/decoder)  
+- Connect to **HTTP/HTTPS and UDP trackers**  
+- Establish and manage **peer-to-peer connections**  
+- Request and receive data blocks from peers  
+- Manage pieces and verify data integrity with **SHA1 hashes**  
+- Support for both **single-file and multi-file torrents**  
+- Ability to **seed** to other peers  
+- Efficient memory management and disk writing  
 
-### اجرای ساده
+---
+
+## Usage
+
+### Quick Run
 \`\`\`bash
-python scripts/run_client.py path/to/your/torrent/file.torrent
+python scripts/run_client.py path/to/file.torrent
 \`\`\`
 
-### اجرای دستی
+### Manual Run
 \`\`\`bash
-python scripts/bittorrent_client.py path/to/your/torrent/file.torrent
+python scripts/bittorrent_client.py path/to/file.torrent
 \`\`\`
 
-## ساختار پروژه
-
-- `torrent_parser.py` - پارس کردن فایل‌های torrent و bencode
-- `tracker_client.py` - ارتباط با tracker های HTTP/UDP
-- `peer_connection.py` - مدیریت اتصال به peer ها
-- `piece_manager.py` - مدیریت piece ها و نوشتن فایل‌ها
-- `bittorrent_client.py` - کلاینت اصلی
-- `run_client.py` - اسکریپت اجرای ساده
-
-## جزئیات پیاده‌سازی
-
-### پارس کردن Torrent
-- پیاده‌سازی کامل bencode decoder/encoder
-- استخراج metadata شامل announce URL، piece length، file list
-- محاسبه info_hash برای شناسایی torrent
-
-### ارتباط با Tracker
-- پشتیبانی از HTTP/HTTPS trackers
-- پشتیبانی از UDP trackers
-- مدیریت announce list و fallback trackers
-
-### مدیریت Peer
-- handshake protocol
-- پیام‌های BitTorrent (choke, unchoke, interested, have, bitfield, request, piece)
-- مدیریت concurrent connections
-- request pipelining برای بهبود سرعت
-
-### مدیریت Piece
-- تقسیم piece ها به block های 16KB
-- تایید hash هر piece
-- مدیریت حافظه و flush کردن به دیسک
-- پشتیبانی از multi-file torrents
-
-## محدودیت‌ها و نکات
-
-- از کتابخانه‌های استاندارد Python استفاده می‌کند
-- پیاده‌سازی کامل پروتکل BitTorrent بدون dependency خارجی
-- مناسب برای یادگیری و درک عمیق پروتکل BitTorrent
-- قابل توسعه برای ویژگی‌های پیشرفته‌تر
-
-## مثال خروجی
-
+## Project Structure
 \`\`\`
+📦 PyBitTorrent
+ ┣ 📜 torrent_parser.py     # Torrent parser and bencode implementation
+ ┣ 📜 tracker_client.py     # HTTP/UDP tracker communication
+ ┣ 📜 peer_connection.py    # Peer connection and message handling
+ ┣ 📜 piece_manager.py      # Piece and file writing management
+ ┣ 📜 bittorrent_client.py  # Main BitTorrent client
+ ┣ 📜 run_client.py         # Entry script for quick execution
+\`\`\`
+
+## Implementation Details
+
+### Torrent Parser
+- Full bencode encoder/decoder implementation
+- Extracts metadata: announce URL, piece length, file list
+- Computes info_hash for torrent identification
+
+### Tracker Client
+- Supports HTTP/HTTPS trackers
+- Supports UDP trackers
+- Handles announce lists and fallback logic
+
+### Peer Connection
+- Full handshake protocol implementation
+- Handles standard BitTorrent messages:
+  - choke, unchoke, interested, have, bitfield, request, piece
+- Manages multiple concurrent connections
+- Implements request pipelining for better performance
+
+### Piece Manager
+- Splits pieces into 16KB blocks
+- Verifies integrity with SHA1 hash checks
+- Writes data safely to disk
+- Supports multi-file torrents
+
+## Limitations and Notes
+
+- Uses only the Python standard library (no external dependencies)
+- Intended for learning and exploring the BitTorrent protocol
+- Can serve as a foundation for advanced features such as DHT, magnet links, or streaming
+
+## Example Output
+\`\`\`yaml
 === PyBitTorrent Client ===
 Loading torrent file: ubuntu.torrent
 Loaded torrent: ubuntu-20.04.3-desktop-amd64.iso
@@ -82,4 +88,7 @@ Progress: 0.1% | Active peers: 3
 Progress: 15.2% | Peers: 5/12 | Remaining: 2865432576 bytes
 \`\`\`
 
-این پیاده‌سازی تمام requirements پروژه شما را برآورده می‌کند و یک کلاینت BitTorrent کاملاً کاربردی ارائه می‌دهد.
+## Conclusion
+
+This project provides a fully functional BitTorrent client implemented from scratch in Python.
+It is suitable for both practical file downloading and for learning the fundamentals of peer-to-peer networking and the BitTorrent protocol.
