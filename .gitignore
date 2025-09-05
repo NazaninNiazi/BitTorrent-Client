@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+venv/
+env/
+
+*.log
+.vscode/
+.idea/
+
+Thumbs.db
+Desktop.ini
+
+downloads/
+*.torrent
